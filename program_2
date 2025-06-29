@@ -80,3 +80,101 @@ https://www.youtube.com/watch?v=kVWYvG-K1eM
 https://www.youtube.com/watch?v=gO20QGT6aW8
 https://www.youtube.com/watch?v=nfajXor9PQM
 
+
+
+2. Continuous Integration with Jenkins:
+Tool: Jenkins, Tomcat 
+Program:
+•	Install and configure Jenkins.
+•	Create a simple pipeline to:
+o	Clone a Git repository.
+o	Build a sample project (e.g., a Java Maven or Python project).
+Run test cases and archive the results.
+•	Install Jenkins and Tomcat on Windows(we have uploaded videos for installation of Jenkins and Tomcat in GCR)
+Step-1: Create maven project with .war format
+Step-2: Create one html/jsp file in “src/main/webapp/index.html” and add
+               HTML code to it. 
+Step-3: Create “src/main/webapp/WEB-INF” folder. In that
+            “src/main/webapp/WEB-INF/web.xml” file.
+Step-4: Include below plugin in “web.xml”
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-war-plugin</artifactId>
+<configuration>
+<webXml>src\main\webapp\WEB-INF\index.jsp</webXml> (mention which page to start)
+</configuration>
+</plugin>
+Step-5: Update project – Maven clean install compile test (make sure build
+              Successful)
+Adding Project to git: 
+Open terminal/command prompt, navigate to project directory and run
+                  “git init”
+Step 1: Create a GitHub Account and create new repository
+Step 2: Install Git on Your PC, Configure your name and email
+Step 3: Initialize Git in Eclipse:
+Open Eclipse and go to your Maven project in the Project Explorer.
+Right-click the project → Team → Share Project.
+Select Git, then click Next.
+Click Create to create a new local Git repository.
+Click Finish.
+Step 4: Add & Commit Files
+Right-click the project → Team → Add to Index (this stages all files for commit).
+Right-click  again → Team → Commit.
+Enter a commit message like "Initial commit" and click Commit.
+Adding Project to git
+Step 5: Connect to GitHub and Push
+Copy your GitHub repository URL (from the GitHub page where you created the repository).
+In Eclipse:
+              Right-click the  project → Team → Remote → Push.
+Click Create Remote.
+Enter origin as the remote name.
+             Paste the GitHub repository URL.
+Click Next.
+Select Branch to Push:
+           Source ref: master (or main, depending on GitHub).
+Destination ref: master (or main).
+Click Next, then Finish.
+       Enter your GitHub username and personal access token (create using GitHub ).
+Step 6: Verify on GitHub
+Go to your GitHub repository page and refresh. You should see your project files uploaded!
+ Note: Next time when you modify your project in eclipse follow step 4 and 5 with commit message as      “updated version”.
+__________________________________________________________________________
+Jenkins Configuration
+Step1: Make Sure you have Git and Maven installed
+In Jenkins UI, Goto Manage Jenkins -> Global Tool Configuration Section of Jenkins->Add maven configuration->give maven version name and select maven version from the dropdown menu.
+  
+Step2: Install maven integration, Deploy to Container and git & GitHub Plugin. 
+Manage Jenkins -> Manage Plugins -> Available -> Deploy to Container Plugin, maven integration & git & GitHub Plugin.
+ 
+Step3: Create and Configure a Maven Job with Source Code Management (Github)
+New Item -> Select Free Style Project
+•	In the Configuration Section, Under Source Code Management Fill your Gitlab Repository URL (Create public Repository in GitHub).
+ 
+Step 4: Next, we need to move to the Build section and select Invoke top-level Maven target options from the dropdown.
+ 
+•	Maven Version will be pre-populated from the Maven version we have defined in the Global Tool Configuration.
+•	Under Goals, we have to provide the Maven command to trigger the execution. Maven Clean and install 
+Step 5 : Configure the Post-build Action and Specify the Tomcat Server Details
+Drag to the bottom and Go to the Post-build Actions section
+Click on Add post-build action button
+On the available options click on the Deploy war/ear to container
+ 
+Choose the Context Path in which the application should be installed. It would rename the WAR file before deploying to the server and thereby the application context root would be changed.
+Tomcat URL http://[Tomcat Server Host]:[Primary http port]/( http://localhost:portnumber)
+ 
+Build Jenkins Job
+Execute the Job you have created by clicking on the Build Now button
+ 
+Console Output after the Successful build.
+At the last line you can see that the WAR file has been generated and deployed on the remote server.
+ 
+Testing the Application
+As the deployment is completed and the Jenkins Job ran Successfully without issues.
+Let us test our application. Got to your web browser and type the URL should be as follows
+http://localhost:8081/projectname
+ 
+
+
+
+
+
